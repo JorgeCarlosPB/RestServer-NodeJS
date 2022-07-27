@@ -68,4 +68,10 @@ const usuariosDelete = async(req, res = response) => {
     res.json(usuario)
 }
 
-export {usuariosGet, usuariosPut, usuariosPost, usuariosDelete, usuariosPatch}
+export {
+    usuariosGet, 
+    usuariosPut, 
+    usuariosPost, 
+    usuariosDelete, 
+    usuariosPatch
+}

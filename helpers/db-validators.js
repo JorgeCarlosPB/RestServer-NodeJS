@@ -1,4 +1,5 @@
 
+import { Categoria } from "../models/categoria.js"
 import { Role } from "../models/role.js"
 import {Usuario} from '../models/usuario.js'
 
@@ -25,5 +26,13 @@ const existeUsuarioPorId = async(id)=>{
     }
 }
 
+const existeCategoriaPorId = async(id)=>{
+    //Verificar si existe el usuario por id
+    const existeCategoria= await Categoria.findById(id)
+    if(!existeCategoria){
+        throw new Error(`El id: ${id} de la categoria no existe`)
+    }
+}
 
-export { esRoleValido, emailExiste, existeUsuarioPorId}
+
+export { esRoleValido, emailExiste, existeUsuarioPorId, existeCategoriaPorId}
