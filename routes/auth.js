@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { validarCampos } from "../midlewares/validar-campos.js";
 import {check} from "express-validator";
-import { login } from "../controllers/auth.controller.js";
+import { googleSignIn, login } from "../controllers/auth.controller.js";
 
 const router = Router()
 
@@ -12,5 +12,11 @@ router.post('/login',[
     validarCampos
 ]
 ,login)
+
+router.post('/google',[
+    check('id_token', 'id_token es necesario').not().isEmpty(),
+    validarCampos
+]
+,googleSignIn)
 
 export {router}
