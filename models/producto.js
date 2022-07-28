@@ -3,7 +3,7 @@ import pkg from 'mongoose'
 
 const {Schema, model} = pkg
 
-const CategoriaSchema = Schema({
+const ProductoSchema = Schema({
     nombre: {
         type: String,
         required: [true, 'El nombre es obligatorio'],
@@ -18,14 +18,30 @@ const CategoriaSchema = Schema({
         type: Schema.Types.ObjectId,
         ref: 'Usuario',
         required: true
+    },
+    precio:{
+        type: Number,
+        default: 0
+    },
+    categoria:{
+        type:Schema.Types.ObjectId,
+        ref:'Categoria',
+        required:true
+    },
+    descripcion:{
+        type: String
+    },
+    disponible:{
+        type:Boolean,
+        default: true
     }
 })
 
-CategoriaSchema.methods.toJSON = function(){
+ProductoSchema.methods.toJSON = function(){
     const {__v,estado, ...data} = this.toObject()
     return data
 }
 
-const Categoria = model('Categoria',CategoriaSchema)
+const Producto = model('Producto',ProductoSchema)
 
-export{Categoria}
+export{Producto}
