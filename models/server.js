@@ -3,11 +3,14 @@ import express from 'express'
 // import express = require('express')
 import cors from 'cors'
 import 'dotenv/config'
+import fileUpload from 'express-fileupload'
+
 import {router as auth} from '../routes/auth.js'
 import {router as user} from '../routes/user.js'
 import {router as categoria} from '../routes/categorias.js'
 import {router as buscar} from '../routes/buscar.js'
 import {router as producto} from '../routes/productos.js'
+import {router as uploads} from '../routes/uploads.js'
 import { dbConnection } from '../database/config.js'
 
 export class Server{
@@ -20,7 +23,8 @@ export class Server{
             buscar: '/api/buscar',
             categorias: '/api/categorias',
             productos:'/api/productos',
-            usuarios: '/api/usuarios'
+            usuarios: '/api/usuarios',
+            uploads: '/api/uploads'
         }
 
         //Conectar a la base de datos
@@ -45,6 +49,13 @@ export class Server{
 
         //directorio publico
         this.app.use(express.static('public'))
+
+        //Carga de archivos
+        this.app.use(fileUpload({
+            useTempFiles : true,
+            tempFileDir : '/tmp/',
+            createParentPath: true
+        }));
     }
 
     routes(){
@@ -53,6 +64,7 @@ export class Server{
         this.app.use(this.paths.categorias, categoria)
         this.app.use(this.paths.productos, producto)
         this.app.use(this.paths.usuarios, user)
+        this.app.use(this.paths.uploads, uploads)
     }
 
     listen(){        
